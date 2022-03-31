@@ -10,17 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get into the code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Install the dependencies
-        run: npm install
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+          node-version: '17.x'
+            
 
-      - name: Build the app
-        run: npm run build
+      - run: npm ci
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - run: npm run build
+
+      - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
