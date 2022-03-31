@@ -19,7 +19,7 @@
 	<input id="input" type="text" name="" on:input={onInput} />
 	<h2>
 		<span class="complete">{currLine.slice(0, currCharIndex)}</span><span
-			class="index">{currChar}</span
+			class="index">{@html currChar == " " ? "&nbsp;" : currChar}</span
 		>{currLine.slice(currCharIndex + 1, currLine.length)}
 	</h2>
 	{#if nextLine}
