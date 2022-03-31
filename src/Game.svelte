@@ -16,6 +16,7 @@
 	let timeout: NodeJS.Timeout
 
 	let written = 0
+	let correct = 0
 	let mistakes = 0
 
 	$: currLine = content[currLineIndex]
@@ -29,14 +30,15 @@
 		if (!input) {
 			return
 		}
+		written++
 		if (areEqual(input, currChar)) {
 			if (!started) {
 				started = true
 				startTime = Date.now()
 				timeout = setTimeout(() => (finished = true), time * 60 * 1000)
 			}
-			written++
-			if (written == getContentLength(content)) {
+			correct++
+			if (correct == getContentLength(content)) {
 				clearTimeout(timeout)
 				time = (Date.now() - startTime) / 1000 / 60
 				finished = true
