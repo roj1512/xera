@@ -1,12 +1,9 @@
 <script lang="ts">
-	import _ from "lodash"
 	import Input from "./Input.svelte"
 	import Results from "./Results.svelte"
-	import { areEqual } from "./utils"
+	import { areEqual, getContentLength } from "./utils"
 
-	export let contents: string[]
-
-	contents = _.shuffle(contents)
+	export let content: string[]
 
 	let time = 1
 	let currLineIndex = 0
@@ -15,30 +12,42 @@
 	let started = false
 	let finished = false
 
+	let startTime: number
+	let timeout: NodeJS.Timeout
+
 	let written = 0
 	let mistakes = 0
 
-	$: currLine = contents[currLineIndex]
+	$: currLine = content[currLineIndex]
 	$: currChar = currLine[currCharIndex]
 	$: wpm = Math.floor(Math.round(written / 5) / time)
 	$: accuracy = Math.round(((written - mistakes) / written) * 100)
 
-	window.onkeypress = function (e: any) {
+	function onInput(e: any) {
 		if (finished) return
-		const input = String.fromCharCode(e.charCode)
+		const input = e.data
+		if (!input) {
+			return
+		}
 		if (!started && Number(input) > 0 && Number(input) <= 10) {
 			time = Number(input)
 		}
+		written++
+		if (written == getContentLength(content)) {
+			clearTimeout(timeout)
+			time = (Date.now() - startTime) / 1000 / 60
+			finished = true
+		}
 		if (areEqual(input, currChar)) {
 			if (!started) {
-				setTimeout(() => (finished = true), 60 * time * 1000)
 				started = true
+				startTime = Date.now()
+				timeout = setTimeout(() => (finished = true), 60 * time * 1000)
 			}
 			if (currLine[currCharIndex + 1] == undefined) {
 				currLineIndex++
 				currCharIndex = 0
 			} else currCharIndex++
-			written++
 		} else {
 			mistakes++
 		}
@@ -48,5 +57,5 @@
 {#if finished}
 	<Results {wpm} {accuracy} {mistakes} />
 {:else}
-	<Input {currCharIndex} {currLineIndex} {contents} />
+	<Input {currCharIndex} {currLineIndex} {content} {onInput} />
 {/if}

@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Game from "./Game.svelte"
 	import ModeToggler from "./ModeToggler.svelte"
-	import { contents } from "./contents"
-	import Input from "./Input.svelte"
+	import { nextContent } from "./utils"
 </script>
 
 <header>
@@ -10,7 +9,11 @@
 </header>
 
 <main>
-	<Game {contents} />
+	{#await nextContent()}
+		<p>چاوەڕوان بە...</p>
+	{:then content}
+		<Game {content} />
+	{/await}
 </main>
 
 <footer>
@@ -39,7 +42,7 @@
 			display flex
 			padding 2rem
 			font-size 1rem
-			font-family Estedad
+			font-family 'Noto Naskh Arabic', serif
 			flex-direction column
 			background-color light
 			justify-content space-between
