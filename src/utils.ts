@@ -15,7 +15,7 @@ export function areEqual(x: string, y: string) {
 }
 
 export async function nextContent() {
-  const result =
+  const content =
     (await (await fetch("https://xera.deno.dev/nextContent")).json()).reduce(
       (a, o, i) => {
         const c = Math.floor(i / 10);
@@ -23,8 +23,9 @@ export async function nextContent() {
         return a;
       },
       [],
-    ).map((l) => l.join(" ") + " ");
-  return result;
+    ).map((l) => l.join(" ") + " ").sort((a, b) => a.length - b.length);
+  content[content.length - 1] = content[content.length - 1].trim();
+  return content;
 }
 
 export function getContentLength(content: string[]) {

@@ -13,9 +13,9 @@
 </script>
 
 <label>
-	{#if prevLine}
+	<!-- {#if prevLine}
 		<h2><span class="complete">{prevLine}</span></h2>
-	{/if}
+	{/if} -->
 	<input id="input" type="text" name="" on:input={onInput} />
 	<h2>
 		<span class="complete">{currLine.slice(0, currCharIndex)}</span><span
@@ -36,8 +36,7 @@
 	@import 'styles/variables'
 
 	h2
-		line-height: 1.5
-		text-align center
+		line-height 1.5
 
 	input
 		width 1px
@@ -48,16 +47,18 @@
 		position absolute
 
 	.complete
-		color light-alt
+		opacity 0
 
 	.index
-		background-color light-alt
+		// background-color light-alt
 		animation blink 700ms infinite linear
 
 	@keyframes blink
 		50%
-			background-color inherit
-		
+			color light
+			background-color dark
+
 		to
-			background-color light-alt
+			color dark
+			background-color light
 </style>
