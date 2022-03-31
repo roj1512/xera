@@ -1,8 +1,17 @@
 :root {
-	--dark: #222;
+	--dark: #111;
 	--dark-alt: #333;
-	--light: #eee;
-	--light-alt: #ccc;
+	--light: #fff;
+	--light-alt: #ddd;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--dark: #fff;	
+		--dark-alt: #ddd;
+		--light: #111;
+		--light-alt: #333;
+	}
 }
 
 *::selection {

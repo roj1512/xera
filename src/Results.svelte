@@ -5,25 +5,28 @@
 
 	accuracy = accuracy || 0
 
-	const twitter = `${wpm} وشە لە خولەکێکدا بەوردیی ${accuracy}% بە تەختەکلیلی کوردی دەنووسم. تۆش بزانە چەندێک خێرایت!`
-	const telegram = twitter + "\n" + location.href
+	const text = `${wpm} وشە لە خولەکێکدا بە وردیی ${accuracy}% بە تەختەکلیلی کوردی دەنووسم. تۆش بزانە چەندێک خێرایت!`
+	const textWithHref = text + '\n'+ location.href;
+
+	const twitterHref = `https://twitter.com/share?text=${text}`
+	const telegramHref = `https://t.me/share?url=${textWithHref}`
 </script>
 
-<h2>خێرایی: {wpm} وشە/خولەک</h2>
-<h2>وردی: {accuracy}%</h2>
-<h2>هەڵەکان: {mistakes}</h2>
+<h2>
+	لە یەک خولەکدا {wpm} وشە دەنووسیت بە وردیی {accuracy}% ({mistakes} هەڵە).
+</h2>
 
 <ul>
 	<li>
 		<h1>
-			<a href="https://twitter.com/share?text={twitter}"
+			<a href={twitterHref}
 				><i class="fab fa-twitter" /></a
 			>
 		</h1>
 	</li>
 	<li>
 		<h1>
-			<a href="https://t.me/share?url={telegram}"
+			<a href={telegramHref}
 				><i class="fab fa-telegram-plane" /></a
 			>
 		</h1>

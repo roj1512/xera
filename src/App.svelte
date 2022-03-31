@@ -1,12 +1,9 @@
 <script lang="ts">
 	import Game from "./Game.svelte"
-	import ModeToggler from "./ModeToggler.svelte"
 	import { nextContent } from "./utils"
 </script>
 
-<header>
-	<ModeToggler />
-</header>
+<header></header>
 
 <main>
 	{#await nextContent()}
@@ -17,10 +14,10 @@
 </main>
 
 <footer>
-	<p>
+	<!-- <p>
 		&copy; {new Date().getFullYear()} <a href="https://roj.im">ڕۆژ</a> &middot;
 		<a href="https://github.com/roj1512/xera">سەرچاوە</a>
-	</p>
+	</p> -->
 </footer>
 
 <style lang="stylus" global>

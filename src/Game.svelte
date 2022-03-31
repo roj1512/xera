@@ -29,19 +29,18 @@
 		if (!input) {
 			return
 		}
-		written++
-		if (written == getContentLength(content)) {
-			clearTimeout(timeout)
-			time = (Date.now() - startTime) / 1000 / 60
-			finished = true
-		}
 		if (areEqual(input, currChar)) {
 			if (!started) {
 				started = true
 				startTime = Date.now()
-				timeout = setTimeout(() => (finished = true), 60 * time * 1000)
+				timeout = setTimeout(() => (finished = true), time * 60 * 1000)
 			}
-			if (currLine[currCharIndex + 1] == undefined) {
+			written++
+			if (written == getContentLength(content)) {
+				clearTimeout(timeout)
+				time = (Date.now() - startTime) / 1000 / 60
+				finished = true
+			} else if (currLine[currCharIndex + 1] == undefined) {
 				currLineIndex++
 				currCharIndex = 0
 			} else currCharIndex++
