@@ -1,17 +1,15 @@
 import { Application, Router } from "https://deno.land/x/oak@v10.5.1/mod.ts";
-import _ from "https://deno.land/x/lodash@4.17.19/lodash.js";
+import { shuffle } from "./utils.ts";
 
 const app = new Application();
 const router = new Router();
-const wordlist = (await Deno.readTextFile(new URL("wordlist.txt", import.meta.url).pathname)).split("\n");
+const wordlist =
+  (await Deno.readTextFile(new URL("wordlist.txt", import.meta.url).pathname))
+    .split("\n");
 
-function shuffle(a: string[]) {
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+app.use((ctx) => {
+  ctx.response.headers.set("Access-Control-Allow-Origin", "*");
+});
 
 router.get("/nextContent", (ctx) => {
   ctx.response.body = shuffle(wordlist).slice(0, 30);
