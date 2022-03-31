@@ -7,11 +7,8 @@ const wordlist =
   (await Deno.readTextFile(new URL("wordlist.txt", import.meta.url).pathname))
     .split("\n");
 
-app.use((ctx) => {
-  ctx.response.headers.set("Access-Control-Allow-Origin", "*");
-});
-
 router.get("/nextContent", (ctx) => {
+  ctx.response.headers.set("Access-Control-Allow-Origin", "*");
   ctx.response.body = shuffle(wordlist).slice(0, 30);
 });
 
