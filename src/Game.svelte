@@ -29,9 +29,6 @@
 		if (!input) {
 			return
 		}
-		if (!started && Number(input) > 0 && Number(input) <= 10) {
-			time = Number(input)
-		}
 		written++
 		if (written == getContentLength(content)) {
 			clearTimeout(timeout)
