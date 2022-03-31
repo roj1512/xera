@@ -3,7 +3,7 @@ import _ from "https://deno.land/x/lodash@4.17.19/lodash.js";
 
 const app = new Application();
 const router = new Router();
-const wordlist = (await Deno.readTextFile("wordlist.txt")).split("\n");
+const wordlist = (await Deno.readTextFile(new URL("wordlist.txt", import.meta.url).pathname)).split("\n");
 
 function shuffle(a: string[]) {
   for (let i = a.length - 1; i > 0; i--) {
