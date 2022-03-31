@@ -1,21 +1,22 @@
 <script lang="ts">
-	export let contents: string[]
+	export let content: string[]
 	export let currLineIndex: number
 	export let currCharIndex: number
+	export let onInput: (e: any) => void = console.log
 
-	$: prevLine = contents[currLineIndex - 1]
-	$: currLine = contents[currLineIndex]
-	$: nextLine = contents[currLineIndex + 1]
-	$: afterNextLine = contents[currLineIndex + 2]
+	$: prevLine = content[currLineIndex - 1]
+	$: currLine = content[currLineIndex]
+	$: nextLine = content[currLineIndex + 1]
+	$: afterNextLine = content[currLineIndex + 2]
 
-	$: currChar = contents[currLineIndex][currCharIndex]
+	$: currChar = content[currLineIndex][currCharIndex]
 </script>
 
 <label>
 	{#if prevLine}
 		<h2><span class="complete">{prevLine}</span></h2>
 	{/if}
-	<input type="text" name="" on:keydown={console.log} />
+	<input id="input" type="text" name="" on:input={onInput} />
 	<h2>
 		<span class="complete">{currLine.slice(0, currCharIndex)}</span><span
 			class="index">{currChar}</span
