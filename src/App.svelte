@@ -7,7 +7,7 @@
 
 <main>
 	{#await nextContent()}
-		<p>چاوەڕوان بە...</p>
+		<h2>چاوەڕوان بە...</h2>
 	{:then content}
 		<Game {content} />
 	{/await}
